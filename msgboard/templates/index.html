@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+    <style>
+        #tt {
+            border: 1px solid blueviolet;
+            border-radius: 12px;
+        }
+        button {
+            margin-right: 8px;
+            margin-left: 10px;
+        }
+    </style>
+        {% if user.is_authenticated %}
+            <form  method="POST" action="{% url 'newform' %}" class="form-horizontal">
+                {% csrf_token %}
+                <textarea rows=10 cols=85 name="text" id="tt"></textarea>
+                <br>
+                <center><button name="submit" class="btn btn-success">留言</button></center>
+            </form>
+        {% endif %}
+        <h3>留言</h3>
+
+        {% for post in posts %}
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4><strong>发表于{{ post.created_at }}&nbsp;&nbsp; 作者：{{ post.author }}</strong></h4>
+                </div>
+                <div class="panel-body">{{ post.content }} </div>
+                <form method="POST" action="{% url 'changelikes' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-xs btn-link glyphicon glyphicon-thumbs-up" name="likes" value="{{ post.id }}">{{ post.thumbs_up }}</buttton>
+                    <button class="btn btn-xs btn-link glyphicon glyphicon-thumbs-down" name="dislikes" value="{{ post.id }}">{{ post.thumbs_down }}</button>
+                </form>
+            </div>
+        {% endfor %}
+
+{% endblock %}

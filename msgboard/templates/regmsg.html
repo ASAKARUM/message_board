@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+{{ register_data }}
+
+{% if username %}
+    注册失败！{{ username }}已存在！！
+    <a href="{% url 'register' %}">注册</a>
+{% else %}
+    恭喜您！注册成功！
+    现在您可以<a href="{% url 'login' %}">登录</a>
+{% endif %}
+{% endblock %}

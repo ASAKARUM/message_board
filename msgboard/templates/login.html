@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-horizontal">
+    <form method="post" action="{% url 'authenticate' %}" class="form">
+        <h2 class="form-title text-center">登录账户</h2>
+        {% csrf_token %}
+        <div class="form-group">
+            <i class="fa fa-user fa-lg"></i>
+            <input class="form-control required" type="text" placeholder="Username" id="username" name="username" autofocus="autofocus" maxlength="30"/>
+                
+            <i class="fa fa-lock fa-lg"></i>
+            <input class="form-control required" type="password" placeholder="Password" id="password" name="password" maxlength="15"/>        
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary pull-center">登录</button>
+            <span>还没有账号？快来<a href="{% url 'register' %}">注册</a>吧！</span>
+        </div>
+    </form>
+</div>
+{% endblock %}
